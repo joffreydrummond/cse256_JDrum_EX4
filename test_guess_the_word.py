@@ -12,3 +12,12 @@ def test_word_selection():
         assert result is True
         assert game["display"] == ["_", "o", "_", "_", "_", "_"]
         assert game["attempts_left"] == 6
+
+def test_process_guess_incorrect():
+    game = initialize_game("coffee")
+    result = process_guess(game, "z")  # obviously not in the word coffee
+
+    assert result is False
+    assert game["display"] == ["_"] * 6  # nothing revealed
+    assert "z" in game["wrong_letters"]
+    assert game["attempts_left"] == 5
