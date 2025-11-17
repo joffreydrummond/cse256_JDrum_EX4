@@ -21,3 +21,12 @@ def test_process_guess_incorrect():
     assert game["display"] == ["_"] * 6  # nothing revealed
     assert "z" in game["wrong_letters"]
     assert game["attempts_left"] == 5
+
+def test_process_guess_multiple_letters():
+    game = initialize_game("weekend")
+    result = process_guess(game, "e")
+
+    # 'e' appears 3 times in "weekend"
+    assert result is True
+    assert game["display"] == ["_", "e", "e", "_", "e", "_", "_"]
+    assert game["attempts_left"] == 6  # no penalty on correct guesses
